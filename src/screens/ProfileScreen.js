@@ -1,11 +1,11 @@
 import React from "react";
 import { Text, StyleSheet, View, Button, TouchableOpacity } from "react-native";
 
-const LoginScreen = ({ navigation }) => {
+const ProfileScreen = () => {
   return (
     <View>
       <Text
-      style={styles.text}>Jimmy
+      style={styles.text}>Profile Screen!
       </Text>
     </View>
   )
@@ -17,5 +17,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LoginScreen;
-
+export default ProfileScreen;

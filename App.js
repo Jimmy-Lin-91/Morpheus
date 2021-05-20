@@ -1,14 +1,18 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import LoginScreen from './src/screens/LoginScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import ProfileScreen from './src/screens/ProfileScreen';
+import DreamPostScreen from './src/screens/DreamPostScreen';
 const navigator = createStackNavigator(
   {
-    Login: LoginScreen,
+    Home: HomeScreen,
+    Profile: ProfileScreen,
+    DreamPost: DreamPostScreen
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'Home',
     defaultNavigationOptions: {
-      title: 'App',
+      title: 'Morpheus',
     },
   }
 );
