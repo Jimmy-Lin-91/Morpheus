@@ -1,11 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, setState } from "react";
 import { Text, StyleSheet, View, Button, TouchableOpacity, TextInput, Keyboard, ScrollView, TouchableWithoutFeedback } from "react-native";
+import DPRatingButtons from './components/DPRatingButtons';
+import RememberAndForget from './components/RememberAndForget';
+
 import AppButton from './components/AppButton';
 const DreamPostScreen = ({ navigation }) => {
-  const [text, onChangeText] = useState('');
-  const [rRating, onChangeRating] = useState(null);
-  const [emotions, onChangeEmotions] = useState([]);
-  const [dreamWords, onChangeWords] = useState([]);
+  const [text, setText] = useState('');
+  const [sleepRating, setRating] = useState(null);
+  const [emotions, setEmotions] = useState([]);
+  const [dreamWords, setDreamWords] = useState([]);
+  const clearState = async () => {
+    setText('');
+    setRating(null);
+    setEmotions([]);
+    setDreamWords([]);
+  }
+  const forgetAndNavigate = () => {
+    clearState().then(() => {
+      navigation.navigate('Profile');
+    })
+  }
+
   return (
     <View style={styles.dreampost_container}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -18,17 +33,16 @@ const DreamPostScreen = ({ navigation }) => {
           <Text style={styles.description}>Be as descriptive as possible. Dream recall is a muscle, train it here...</Text>
           <TextInput
           style={styles.textinput}
-          onChangeText={onChangeText}
+          onChangeText={setText}
           value={text}
           multiline={true}
+          placeholder='I remember most vividly...'
           >
           </TextInput>
         </View>
       </TouchableWithoutFeedback>
-      <View style={styles.button_container}>
-        <AppButton title={'Remember'}/>
-        <AppButton onPress={() => navigation.navigate('Profile')}title={'Forget It'}/>
-      </View>
+      {sleepRating > 0 ? null : <DPRatingButtons/>}
+      {dreamWords.length > 0 ? <RememberAndForget/> : null}
     </View>
   )
 };
@@ -38,40 +52,36 @@ const styles = StyleSheet.create({
     borderWidth: 15,
     borderColor: '#C0E5FA',
     height: '100%',
-    width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  button_container: {
-    marginBottom: 30
-  },
-  textinput : {
-    borderWidth: 5,
-    borderColor: '#7FC3EA',
-    height: 300,
-    margin: 10,
-    color: '#598DAB',
-    textAlignVertical: 'top',
-    padding: 10,
-    backgroundColor: 'rgba(181, 163, 163, .18)'
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    padding: 10
   },
   dreampost_title: {
     position: 'relative',
-    top: 20,
     color: '#598DAB',
-    fontSize: 36,
     backgroundColor: '#7FC3EA',
-    padding: 20,
+    padding: 10,
+    fontSize: 30,
     fontWeight: 'bold'
   },
   description: {
     color: '#598DAB',
+    marginTop: 20,
+    marginBottom: 20,
+    paddingLeft: 2,
+    paddingRight: 2
+  },
+  textinput : {
+    borderWidth: 5,
+    padding: 5,
+    borderColor: '#7FC3EA',
+    height: 300,
+    color: '#598DAB',
+    textAlignVertical: 'top',
     position: 'relative',
-    top: -20,
-    padding: 15,
-    fontSize: 16
+    backgroundColor: 'rgba(181, 163, 163, .18)'
   }
 });
 

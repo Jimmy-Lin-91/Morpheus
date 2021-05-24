@@ -1,30 +1,28 @@
-import React, { useRef, useEffect } from "react";
-import { Animated, Easing } from "react-native";
+import React, { useRef, useEffect } from 'react';
+import { Animated, Text, View } from 'react-native';
 
-const FadeInView = (props) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  const fadeScale = fadeAnim.interpolate({
-    inputRange: [0, 0.5, 1],
-    outputRange: [1, 1.1, 1.2]
-  })
-  let fadeAnimStyle = {...props.style, transform: [{ scale: fadeScale}]}
+const FadeIntoView = (props) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current
   React.useEffect(() => {
     Animated.timing(
       fadeAnim,
       {
         toValue: 1,
-        duration: 1000,
+        duration: 1500,
         useNativeDriver: true
       }
     ).start();
   }, [fadeAnim])
+
   return (
-    <Animated.View style={{
-      ...props.style,
-      opacity: fadeAnim,
-    }}>
+    <Animated.View
+      style={{
+        ...props.style,
+        opacity: fadeAnim,
+      }}
+    >
       {props.children}
     </Animated.View>
-  )
+  );
 }
-export default FadeInView;
+export default FadeIntoView;
