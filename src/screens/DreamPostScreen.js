@@ -2,8 +2,8 @@ import React, { useState, setState } from "react";
 import { Text, StyleSheet, View, Button, TouchableOpacity, TextInput, Keyboard, ScrollView, TouchableWithoutFeedback } from "react-native";
 import DPRatingButtons from './components/DPRatingButtons';
 import RememberAndForget from './components/RememberAndForget';
+import EmotionsBeforeBed from './components/EmotionsBeforeBed';
 
-import AppButton from './components/AppButton';
 const DreamPostScreen = ({ navigation }) => {
   const [text, setText] = useState('');
   const [sleepRating, setRating] = useState(null);
@@ -41,8 +41,9 @@ const DreamPostScreen = ({ navigation }) => {
           </TextInput>
         </View>
       </TouchableWithoutFeedback>
-      {sleepRating > 0 ? null : <DPRatingButtons/>}
-      {dreamWords.length > 0 ? <RememberAndForget/> : null}
+      <DPRatingButtons sleepRating={sleepRating} setRating={setRating}/>
+      <EmotionsBeforeBed sleepRating={sleepRating} setEmotions={setEmotions}/>
+
     </View>
   )
 };

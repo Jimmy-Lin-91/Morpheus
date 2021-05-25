@@ -2,29 +2,23 @@ import React, { useState } from 'react';
 import { View, Button, TouchableOpacity, Text, StyleSheet, Animated } from 'react-native';
 import FadeIntoView from './FadeIntoView';
 import RatingButton from './RatingButton';
-const DPRatingButtons = (props) => {
-  const {
-    sleepRating,
-    setRating,
-    forgetAndNavigate
+const EmotionsBeforeBed = ({ sleepRating, setEmotions }) => {
+  const resetWords = () => {
+    setEmotions([]);
   }
-   = props;
-  const resetRating = () => {
-    setRating(null);
-  }
-  if (props.sleepRating === null) {
+  if (sleepRating === null) {
     return (
       <FadeIntoView style={styles.rating_container}>
         <View>
           <View style={styles.sleepQuestions_container}>
-            <Text style={styles.sleepQuestions}>How rested do I feel?</Text>
+            <Text style={styles.sleepQuestions}>Before going to bed, I felt...</Text>
           </View>
           <View style={styles.ratingButtons_container}>
-            <RatingButton style={styles.ratingButton} title='1' onPress={() => setRating(1)}/>
-            <RatingButton style={styles.ratingButton} title='2' onPress={() => setRating(2)}/>
-            <RatingButton style={styles.ratingButton} title='3' onPress={() => setRating(3)}/>
-            <RatingButton style={styles.ratingButton} title='4' onPress={() => setRating(4)}/>
-            <RatingButton style={styles.ratingButton} title='5' onPress={() => setRating(5)}/>
+            <RatingButton style={styles.ratingButton} title='1' onPress={() => setEmotions([...''])}/>
+            <RatingButton style={styles.ratingButton} title='2' onPress={() => setEmotions(2)}/>
+            <RatingButton style={styles.ratingButton} title='3' onPress={() => setEmotions(3)}/>
+            <RatingButton style={styles.ratingButton} title='4' onPress={() => setEmotions(4)}/>
+            <RatingButton style={styles.ratingButton} title='5' onPress={() => setEmotions(5)}/>
           </View>
         </View>
 
@@ -32,7 +26,7 @@ const DPRatingButtons = (props) => {
     )
   } else {
     return (
-      <RatingButton onPress={resetRating} title='<---'/>
+      <RatingButton onPress={resetEmotions} title='<---'/>
     )
   }
 }
@@ -58,4 +52,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default DPRatingButtons;
+export default EmotionsBeforeBed;

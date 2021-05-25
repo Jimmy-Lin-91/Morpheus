@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { Text, StyleSheet, View, Button, TouchableOpacity, Image, Animated, Easing } from "react-native";
-import AppButton from './components/AppButton';
+import AppHomeScreenButton from './components/AppHomeScreenButton';
 class HomeScreen extends Component  {
     constructor() {
       super()
@@ -41,12 +41,15 @@ class HomeScreen extends Component  {
                 <Text style={{color: '#598DAB', fontSize: 14}}>Welcome to your dream palace.</Text>
             </View>
               <View style={styles.button_container}>
-                <AppButton
+                <AppHomeScreenButton
                   onPress={() => this.props.navigation.navigate('DreamPost')}
                   title={'New Dream'}/>
-                <AppButton
+                <AppHomeScreenButton
                   onPress={() => this.props.navigation.navigate('Profile')}
                   title={'Dream Vault'}/>
+                <AppHomeScreenButton
+                  onPress={() => this.props.navigation.navigate('Guide')}
+                  title={'Learn More!'}/>
               </View>
         </View>
       )
