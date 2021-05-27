@@ -32,7 +32,7 @@ const DPRatingButtons = (props) => {
     )
   } else {
     return (
-      <RatingButton onPress={resetRating} title='<---'/>
+     null
     )
   }
 }

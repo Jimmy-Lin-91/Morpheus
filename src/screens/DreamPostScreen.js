@@ -2,13 +2,17 @@ import React, { useState, setState } from "react";
 import { Text, StyleSheet, View, Button, TouchableOpacity, TextInput, Keyboard, ScrollView, TouchableWithoutFeedback } from "react-native";
 import DPRatingButtons from './components/DPRatingButtons';
 import RememberAndForget from './components/RememberAndForget';
-import EmotionsBeforeBed from './components/EmotionsBeforeBed';
-
+import Emotions from './components/Emotions';
+import Database from '../../server/db/Database';
+import Settings from './components/Settings';
+import People from './components/People';
+const db = new Database();
 const DreamPostScreen = ({ navigation }) => {
   const [text, setText] = useState('');
   const [sleepRating, setRating] = useState(null);
   const [emotions, setEmotions] = useState([]);
-  const [dreamWords, setDreamWords] = useState([]);
+  const [settings, setSettings] = useState([]);
+  const [people, setPeople] = useState([]);
   const clearState = async () => {
     setText('');
     setRating(null);
@@ -42,8 +46,9 @@ const DreamPostScreen = ({ navigation }) => {
         </View>
       </TouchableWithoutFeedback>
       <DPRatingButtons sleepRating={sleepRating} setRating={setRating}/>
-      <EmotionsBeforeBed sleepRating={sleepRating} setEmotions={setEmotions}/>
-
+      <Emotions sleepRating={sleepRating} setEmotions={setEmotions} emotions={emotions}/>
+      <Settings sleepRating={sleepRating} emotions={emotions} setSettings={setSettings}/>
+      <People sleepRating={sleepRating} emotions={emotions} settings={settings} setPeople={setPeople}/>
     </View>
   )
 };
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
   dreampost_title: {
     position: 'relative',
     color: '#598DAB',
-    backgroundColor: '#7FC3EA',
+    backgroundColor: '#C0E5FA',
     padding: 10,
     fontSize: 30,
     fontWeight: 'bold'
@@ -78,7 +83,7 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     padding: 5,
     borderColor: '#7FC3EA',
-    height: 300,
+    height: 200,
     color: '#598DAB',
     textAlignVertical: 'top',
     position: 'relative',

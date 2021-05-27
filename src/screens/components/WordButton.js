@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 
-const RatingButton = ({ onPress, title }) => {
+const WordButton = ({ onPress, title }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
       <Text style={styles.appButtonText}>{title}</Text>
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 18,
     marginBottom: 10,
-    width: 'auto',
+    width: 150,
     marginTop: 10
   },
   appButtonText: {
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default RatingButton;
+export default WordButton;
