@@ -3,9 +3,10 @@ import { View, Button, TouchableOpacity, Text, StyleSheet, Animated } from 'reac
 import FadeIntoView from './FadeIntoView';
 import WordButton from './WordButton';
 
-const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions }) => {
+const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation }) => {
   const cancel = () => {
     setEmotions([]);
+    navigation.navigate('Profile');
   }
   if (sleepRating) {
     return (
@@ -13,47 +14,50 @@ const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions }) => {
         <View style={styles.emotions_outter_container}>
           <View style={styles.emotions_container}>
             <Text style={styles.emotionQuestions}>I felt ___ after my dream.</Text>
-            <Text>Choose all that apply</Text>
           </View>
           <View style={styles.WordButtons_container}>
             <View style={styles.emotion_col1}>
-            <WordButton
-            style={styles.WordButton}
-            title='Sad'
-            onPress={() => setEmotions([...emotions, 'Sad'])}/>
-
+            {emotions.indexOf('Angry') < 0 ?
             <WordButton
             style={styles.WordButton}
             title='Angry'
-            onPress={() => setEmotions([...emotions, 'Angry'])}/>
-            <WordButton
-            style={styles.WordButton}
-            title='Happy'
-            onPress={() => setEmotions([...emotions, 'Happy'])}/>
-            <WordButton
-            style={styles.WordButton}
-            title='Apathetic'
-            onPress={() => setEmotions([...emotions, 'Apathetic'])}/>
-            <WordButton
-            style={styles.WordButton}
-            title='Confused' onPress={() => setEmotions([...emotions, 'Confused'])}/>
-            </View>
-            <View style={styles.emotion_col2}>
-              {emotions.map((emotion, i) => {
-                return (
-                  <FadeIntoView key={i}>
-                    <Text style={styles.chosen_emotions}>{emotion}</Text>
-                  </FadeIntoView>
-                )
-              })}
-            </View>
-          </View>
-          <View>
+            onPress={() => setEmotions(['Angry', ...emotions])}/> : null}
+            {emotions.indexOf('Happy') < 0 ?
               <WordButton
               style={styles.WordButton}
-              title='Cancel'
-              onPress={() => setEmotions([])}/>
+              title='Happy'
+              onPress={() => setEmotions([...emotions, 'Happy'])}/> : null}
+            {emotions.indexOf('Apathetic') < 0 ?
+              <WordButton
+              style={styles.WordButton}
+              title='Apathetic'
+              onPress={() => setEmotions([...emotions, 'Apathetic'])}/> : null }
+            {emotions.indexOf('Confused') < 0 ?
+              <WordButton
+              style={styles.WordButton}
+              title='Confused' onPress={() => setEmotions([...emotions, 'Confused'])}/> : null }
+            {emotions.indexOf('Sad') < 0 ?
+              <WordButton
+              style={styles.WordButton}
+              title='Sad'
+              onPress={() => setEmotions(['Sad', ...emotions])}/> : null}
             </View>
+            <View style={styles.emotion_col2}>
+              {emotions.indexOf('Angry') > -1 ? <Text style={styles.chosen_angry}>Angry</Text> : null}
+              {emotions.indexOf('Happy') > -1 ? <Text style={styles.chosen_happy}>Happy</Text> : null}
+              {emotions.indexOf('Apathetic') > -1 ? <Text style={styles.chosen_apathetic}>Apathetic</Text> : null}
+              {emotions.indexOf('Confused') > -1 ? <Text style={styles.chosen_confused}>Confused</Text> : null}
+              {emotions.indexOf('Sad') > -1 ? <Text style={styles.chosen_sad}>Sad</Text> : null}
+            </View>
+          </View>
+          <View style={{display: 'flex', flexDirection: 'row', padding: 10}}>
+            <WordButton
+            title='Back'
+            onPress={() => cancel()}/>
+            <WordButton
+            title='Cancel'
+            onPress={() => setEmotions([])}/>
+          </View>
         </View>
 
     </FadeIntoView>
@@ -82,35 +86,43 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   emotion_col1: {
+    marginTop: 10,
     flex: 1,
     display: 'flex',
-    justifyContent: 'center'
-  },
-  emotion_container: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: 300
   },
   emotion_col2: {
     flex: 1,
     display: 'flex',
     marginLeft: 10,
-    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: '#598DAB',
     borderWidth: 5,
     marginTop: 10,
-    marginBottom: 10,
-    height: 'auto',
-    paddingTop: 5
+    height: 300
   },
-  chosen_emotions: {
-    color: '#598DAB',
-    height: 50,
-    fontWeight: 'bold',
-    fontSize: 18
-
+  chosen_sad: {
+    color: 'rgba(0, 120, 255, .7)',
+    textAlign: 'center',
+    height: 40
+  },
+  chosen_happy: {
+    color: 'rgba(0, 255, 120, .7)',
+    textAlign: 'center'
+  },
+  chosen_confused: {
+    textAlign: 'center',
+    color: 'black'
+  },
+  chosen_apathetic: {
+    textAlign: 'center',
+    color: 'grey'
+  },
+  chosen_angry: {
+    textAlign: 'center',
+    color: 'rgba(255, 0, 0, .8)'
   }
 })
 

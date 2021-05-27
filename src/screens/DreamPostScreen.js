@@ -46,7 +46,7 @@ const DreamPostScreen = ({ navigation }) => {
         </View>
       </TouchableWithoutFeedback>
       <DPRatingButtons sleepRating={sleepRating} setRating={setRating}/>
-      <Emotions sleepRating={sleepRating} setEmotions={setEmotions} emotions={emotions}/>
+      <Emotions sleepRating={sleepRating} setEmotions={setEmotions} emotions={emotions} navigation={navigation}/>
       <Settings sleepRating={sleepRating} emotions={emotions} setSettings={setSettings}/>
       <People sleepRating={sleepRating} emotions={emotions} settings={settings} setPeople={setPeople}/>
     </View>
