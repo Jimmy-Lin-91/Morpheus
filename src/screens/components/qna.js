@@ -6,10 +6,10 @@
   ]
 
   const answers = [
-    'Lucid Dreaming is the proven ability to become "self-aware" in your dreams, allowing you to control them and do almost anything within your mind.',
-    'The answer is dream recall. The more you can remember from dreaming, the more likely you are to identify that you are dreaming.',
-    'Just like Lucid Dreaming, the more you practice remembering your dreams, the easier it becomes to remember! Once you get good at remembering dreams, Lucid Dreaming is only a few steps away.',
-    'Dream recall is much easier when there are emotions and details involved. How did you feel in the dream? As vividly as possible, what setting were you in? Who, by name, do you remember being there?'
+    'Lucid Dreaming is the ability to become "self-aware" in your dreams, allowing you to control them and do almost anything within your mind.',
+    'The answer is remembering your dreams. Your mind needs to develop the muscle to discern between reality and dream. In order to do this, you must train your mind to ask "Am I dreaming right now?". The more details you can remember from a dream, the more likely your mind will become accustomed to realizing that it is dreaming.',
+    'Often times our dreams come back to us in fractured memories; snippets or images. However, these visions are always accompanied by an emotion. I find it much easier to remember a dream if I can recall how the dream made me feel. Terrified? Excited? Aroused? Apathetic? From there, you can piece together the fragments more coherently.',
+    'Dream recall is much easier when there are emotions involved. Even a scent in a dream can trigger emotional responses. Try to link together what you saw with how you felt. This way, it is automatic to include your feelings each time you go to record your dream.'
   ]
 
   export { questions, answers };

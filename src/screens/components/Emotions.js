@@ -8,7 +8,7 @@ const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation }) =
     setEmotions([]);
     navigation.navigate('Profile');
   }
-  if (sleepRating) {
+  if (emotions.length > 0) {
     return (
       <FadeIntoView style={styles.emotion_container}>
         <View style={styles.emotions_outter_container}>
