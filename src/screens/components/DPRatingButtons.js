@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Button, TouchableOpacity, Text, StyleSheet, Animated } from 'react-native';
 import FadeIntoView from './FadeIntoView';
-import RatingButton from './RatingButton';
-const DPRatingButtons = (props) => {
+import MyButton from './MyButton.js';
+const SleepRatings = (props) => {
   const {
     sleepRating,
     setRating,
@@ -19,12 +19,32 @@ const DPRatingButtons = (props) => {
           <View style={styles.sleepQuestions_container}>
             <Text style={styles.sleepQuestions}>How rested do I feel?</Text>
           </View>
-          <View style={styles.ratingButtons_container}>
-            <RatingButton style={styles.ratingButton} title='1' onPress={() => setRating(1)}/>
-            <RatingButton style={styles.ratingButton} title='2' onPress={() => setRating(2)}/>
-            <RatingButton style={styles.ratingButton} title='3' onPress={() => setRating(3)}/>
-            <RatingButton style={styles.ratingButton} title='4' onPress={() => setRating(4)}/>
-            <RatingButton style={styles.ratingButton} title='5' onPress={() => setRating(5)}/>
+          <View style={styles.ratingMyButton_container}>
+            <MyButton
+              onPress={() => setRating(1)}
+              title='1'
+              style={styles.button}
+            />
+            <MyButton
+              onPress={() => setRating(2)}
+              title='2'
+              style={styles.button}
+            />
+            <MyButton
+              onPress={() => setRating(3)}
+              title='3'
+              style={styles.button}
+            />
+            <MyButton
+              onPress={() => setRating(4)}
+              title='4'
+              style={styles.button}
+            />
+            <MyButton
+              onPress={() => setRating(5)}
+              title='5'
+              style={styles.button}
+            />
           </View>
         </View>
 
@@ -38,9 +58,15 @@ const DPRatingButtons = (props) => {
 }
 const styles = StyleSheet.create({
   rating_container: {
-    marginTop: 20
+    marginTop: 20,
+    backgroundColor: "#C0E5FA",
+    padding: 15,
+    shadowColor: 'black',
+    shadowOffset: {width: 1, height: 1},
+    shadowOpacity: .8,
+    shadowRadius: 2
   },
-  ratingButtons_container: {
+  ratingMyButton_container: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -53,9 +79,21 @@ const styles = StyleSheet.create({
     fontSize: 36,
   },
   sleepQuestions_container: {
-    borderBottomColor: "#C0E5FA",
     borderBottomWidth: 5,
+    borderBottomColor: '#598DAB'
+  },
+  button: {
+    color: '#598DAB',
+    marginTop: 10,
+    borderWidth: 2,
+    padding: 5,
+    borderRadius: 5,
+    borderColor: '#598DAB',
+    shadowColor: '#598DAB',
+    shadowOffset: {width: 1, height: 1},
+    shadowOpacity: .5,
+    shadowRadius: 2
   }
 })
 
-export default DPRatingButtons;
+export default SleepRatings;

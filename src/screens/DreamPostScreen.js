@@ -1,11 +1,11 @@
 import React, { useState, setState } from "react";
 import { Text, StyleSheet, View, Button, TouchableOpacity, TextInput, Keyboard, ScrollView, TouchableWithoutFeedback } from "react-native";
 import DPRatingButtons from './components/DPRatingButtons';
-import RememberAndForget from './components/RememberAndForget';
 import Emotions from './components/Emotions';
 import Database from '../../server/db/Database';
 import Settings from './components/Settings';
 import People from './components/People';
+import MyButton from './components/MyButton';
 const db = new Database();
 const DreamPostScreen = ({ navigation }) => {
   const [text, setText] = useState('');
@@ -19,9 +19,9 @@ const DreamPostScreen = ({ navigation }) => {
     setEmotions([]);
     setDreamWords([]);
   }
-  const forgetAndNavigate = () => {
+  const forgetAndNavigate = (string) => {
     clearState().then(() => {
-      navigation.navigate('Profile');
+      navigation.navigate(string);
     })
   }
 
@@ -45,10 +45,16 @@ const DreamPostScreen = ({ navigation }) => {
           </TextInput>
         </View>
       </TouchableWithoutFeedback>
-      <DPRatingButtons sleepRating={sleepRating} setRating={setRating}/>
-      <Emotions sleepRating={sleepRating} setEmotions={setEmotions} emotions={emotions} navigation={navigation}/>
-      <Settings sleepRating={sleepRating} emotions={emotions} settings={settings} setSettings={setSettings}/>
-      <People sleepRating={sleepRating} emotions={emotions} settings={settings} people={people} setPeople={setPeople}/>
+      <View>
+        <DPRatingButtons sleepRating={sleepRating} setRating={setRating}/>
+        <Emotions sleepRating={sleepRating} setEmotions={setEmotions} emotions={emotions} navigation={navigation}/>
+        <Settings sleepRating={sleepRating} emotions={emotions} settings={settings} setSettings={setSettings}/>
+        <People sleepRating={sleepRating} emotions={emotions} settings={settings} people={people} setPeople={setPeople}/>
+      </View>
+      <View>
+        <MyButton title='Cancel'/>
+        <MyButton title='Home' onPress={() => forgetAndNavigate('Profile')}/>
+      </View>
     </View>
   )
 };

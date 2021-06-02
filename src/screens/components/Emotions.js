@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Button, TouchableOpacity, Text, StyleSheet, Animated } from 'react-native';
 import FadeIntoView from './FadeIntoView';
-import WordButton from './WordButton';
+import MyButton from './MyButton.js';
 
 const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation }) => {
   const cancel = () => {
@@ -15,32 +15,33 @@ const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation }) =
           <View style={styles.emotions_container}>
             <Text style={styles.emotionQuestions}>I felt ___ after my dream.</Text>
           </View>
-          <View style={styles.WordButtons_container}>
+          <View style={styles.buttons_container}>
             <View style={styles.emotion_col1}>
             {emotions.indexOf('Angry') < 0 ?
-            <WordButton
-            style={styles.WordButton}
-            title='Angry'
-            onPress={() => setEmotions(['Angry', ...emotions])}/> : null}
-            {emotions.indexOf('Happy') < 0 ?
-              <WordButton
-              style={styles.WordButton}
+            <MyButtons
+              styles={styles.buttonContainer}
+              title='Angry'
+              onPress={() => setEmotions(['Angry', ...emotions])}
+            /> : null}
+            {/* {emotions.indexOf('Happy') < 0 ?
+              <Buttons
+              style={styles.Buttons}
               title='Happy'
               onPress={() => setEmotions([...emotions, 'Happy'])}/> : null}
             {emotions.indexOf('Apathetic') < 0 ?
-              <WordButton
-              style={styles.WordButton}
+              <Buttons
+              style={styles.Buttons}
               title='Apathetic'
               onPress={() => setEmotions([...emotions, 'Apathetic'])}/> : null }
             {emotions.indexOf('Confused') < 0 ?
-              <WordButton
-              style={styles.WordButton}
+              <Buttons
+              style={styles.Buttons}
               title='Confused' onPress={() => setEmotions([...emotions, 'Confused'])}/> : null }
             {emotions.indexOf('Sad') < 0 ?
-              <WordButton
-              style={styles.WordButton}
+              <Buttons
+              style={styles.Buttons}
               title='Sad'
-              onPress={() => setEmotions(['Sad', ...emotions])}/> : null}
+              onPress={() => setEmotions(['Sad', ...emotions])}/> : null} */}
             </View>
             <View style={styles.emotion_col2}>
               {emotions.indexOf('Angry') > -1 ? <Text style={styles.chosen_angry}>Angry</Text> : null}
@@ -51,10 +52,10 @@ const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation }) =
             </View>
           </View>
           <View style={{display: 'flex', flexDirection: 'row', padding: 10}}>
-            <WordButton
+            <MyButton
             title='Back'
             onPress={() => cancel()}/>
-            <WordButton
+            <MyButton
             title='Cancel'
             onPress={() => setEmotions([])}/>
           </View>
@@ -81,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold'
   },
-  WordButtons_container: {
+  Buttonss_container: {
     display: 'flex',
     flexDirection: 'row',
   },
@@ -123,6 +124,24 @@ const styles = StyleSheet.create({
   chosen_angry: {
     textAlign: 'center',
     color: 'rgba(255, 0, 0, .8)'
+  },
+  buttons_container: {
+    position: 'relative',
+    elevation: 8,
+    backgroundColor: '#7FC3EA',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 18,
+    marginBottom: 10,
+    width: 150,
+    margin: 5
+  },
+  buttonText: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase"
   }
 })
 

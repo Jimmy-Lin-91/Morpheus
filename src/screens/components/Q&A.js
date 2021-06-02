@@ -6,7 +6,6 @@ const QandA = ({ question, answer }) => {
     <View style={styles.question_container}>
       <View style={styles.question_bottomborder}>
         <Text style={styles.question}>{question}</Text>
-
       </View>
       <Text style={styles.answer}>{answer}</Text>
     </View>
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#C0E5FA',
     marginTop: 10,
     marginBottom: 10,
-    height: 140
+    height: 'auto'
   },
   question: {
     fontSize: 16,

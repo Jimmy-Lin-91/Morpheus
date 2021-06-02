@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import QandA from './components/Q&A';
 import { questions, answers } from './components/qna.js';
-import AppHomeScreenButton from './components/AppHomeScreenButton';
+import MyButton from './components/MyButton';
 const { height } = Dimensions.get('window');
 class GuideScreen extends Component {
   constructor(){
@@ -33,8 +33,8 @@ class GuideScreen extends Component {
         )
       })}
       <View style={styles.button_container}>
-        <AppHomeScreenButton title={'Back'} onPress={() => this.props.navigation.navigate('Home')}/>
-        <AppHomeScreenButton title={"I'm ready!"} onPress={() => this.props.navigation.navigate('DreamPost')}/>
+        <MyButton title={'Back'} onPress={() => this.props.navigation.navigate('Home')} style={styles.button}/>
+        <MyButton title={"I'm ready!"} style={styles.button}onPress={() => this.props.navigation.navigate('DreamPost')}/>
       </View>
       </ScrollView>
     )
@@ -46,8 +46,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10
+    justifyContent: 'center'
   },
   header_container: {
     borderBottomColor: '#598EAB',
@@ -82,7 +81,19 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginBottom: 75
+  },
+  button: {
+    position: 'relative',
+    elevation: 8,
+    backgroundColor: "#C0E5FA",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    margin: 10,
+    width: 175,
+    paddingLeft: 5
   }
 })
 
