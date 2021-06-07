@@ -2,17 +2,11 @@ import React, { useState } from 'react';
 import { View, Button, TouchableOpacity, Text, StyleSheet, Animated } from 'react-native';
 import FadeIntoView from './FadeIntoView';
 import MyButton from './MyButton.js';
-const SleepRatings = (props) => {
-  const {
-    sleepRating,
-    setRating,
-    forgetAndNavigate
-  }
-   = props;
+const SleepRatings = ({ sleepRating, setSleepRating, sleepRatingDone, setSleepRatingDone, setRating }) => {
   const resetRating = () => {
     setRating(null);
   }
-  if (props.sleepRating === null) {
+  if (sleepRating === null) {
     return (
       <FadeIntoView style={styles.rating_container}>
         <View>

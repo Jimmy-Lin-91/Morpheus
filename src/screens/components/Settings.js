@@ -1,57 +1,117 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import MyButton from './MyButton.js';
+import FadeIntoView from './FadeIntoView'
 
-const Settings = ({ sleepRating, emotions, setSettings, settings}) => {
-  if (settings.length > 0) {
+const Settings = ({ setSettingsDone, settingsDone, emotionsDone, setSettings, settings}) => {
+  const cancel = () => {
+    setSettings([]);
+  }
+  let handleNext  = (e) => {
+    setSettingsDone(true);
+  }
+  const renderFamiliarAndUnfamiliar = () => {
+    if (settings.indexOf('Familiar') > -1 || settings.indexOf('Unfamiliar') > -1) {
+      return null;
+    } else {
+      return (
+        <View>
+          <MyButton
+          title='Familiar'
+          onPress={() => setSettings([...settings, 'Familiar'])}
+          style={styles.button_col1}
+          />
+          <MyButton
+          title='Unfamiliar'
+          onPress={() => setSettings([...settings, 'Unfamiliar'])}
+          style={styles.button_col1}
+          />
+        </View>
+      )
+    }
+  }
+  const renderNextSettings = () => {
+    if (settings.indexOf('Familiar') > -1 || settings.indexOf('Unfamiliar') > -1) {
+      return (
+        <View>
+          {settings.indexOf('House') === -1 ?
+            <MyButton
+            title='House'
+            onPress={() => setSettings([...settings, 'House'])}
+            style={styles.button_col1}
+            />
+          : null}
+          {settings.indexOf('Stage') === -1 ?
+            <MyButton
+            title='Stage'
+            onPress={() => setSettings([...settings, 'Stage'])}
+            style={styles.button_col1}
+          />
+          : null}
+          {settings.indexOf('Building') === -1 ?
+            <MyButton
+            title='Building'
+            onPress={() => setSettings([...settings, 'Building'])}
+            style={styles.button_col1}
+            />
+          : null}
+          {settings.indexOf('Classroom') === -1 ?
+            <MyButton
+            title='Classroom'
+            onPress={() => setSettings([...settings, 'Classroom'])}
+            style={styles.button_col1}
+            />
+          : null}
+          {settings.indexOf('Dungeon') === -1 ?
+            <MyButton
+            title='Dungeon'
+            onPress={() => setSettings([...settings, 'Dungeon'])}
+            style={styles.button_col1}
+            />
+          :null}
+          {settings.indexOf('Park') === -1 ?
+            <MyButton
+            title='Park'
+            onPress={() => setSettings([...settings, 'Park'])}
+            style={styles.button_col1}
+            />
+          : null}
+        </View>
+      )
+    } else {
+      return null;
+    }
+  }
+  if (emotionsDone === true && settingsDone === false) {
     return (
       <FadeIntoView style={styles.settings_container}>
-        <View style={styles.settingss_outter_container}>
-          <View style={styles.settingss_container}>
-            <Text style={styles.settingsQuestions}>I felt ___ after my dream.</Text>
+        <View style={styles.setting_outter_container}>
+          <View>
+            <Text style={styles.settingsQuestion}>The setting was ___.</Text>
           </View>
-          <View style={styles.myButtons_container}>
+          <View style={styles.settings_buttons_container}>
             <View style={styles.settings_col1}>
-            {settingss.indexOf('Angry') < 0 ?
-            <MyButton
-            style={styles.myButton}
-            title='Angry'
-            onPress={() => setsettingss(['Angry', ...settingss])}/> : null}
-            {settingss.indexOf('Happy') < 0 ?
-              <MyButton
-              style={styles.myButton}
-              title='Happy'
-              onPress={() => setsettingss([...settingss, 'Happy'])}/> : null}
-            {settingss.indexOf('Apathetic') < 0 ?
-              <MyButton
-              style={styles.myButton}
-              title='Apathetic'
-              onPress={() => setsettingss([...settingss, 'Apathetic'])}/> : null }
-            {settingss.indexOf('Confused') < 0 ?
-              <MyButton
-              style={styles.myButton}
-              title='Confused' onPress={() => setsettingss([...settingss, 'Confused'])}/> : null }
-            {settingss.indexOf('Sad') < 0 ?
-              <MyButton
-              style={styles.myButton}
-              title='Sad'
-              onPress={() => setsettingss(['Sad', ...settingss])}/> : null}
+              {renderFamiliarAndUnfamiliar()}
+              {renderNextSettings()}
             </View>
             <View style={styles.settings_col2}>
-              {settingss.indexOf('Angry') > -1 ? <Text style={styles.chosen_angry}>Angry</Text> : null}
-              {settingss.indexOf('Happy') > -1 ? <Text style={styles.chosen_happy}>Happy</Text> : null}
-              {settingss.indexOf('Apathetic') > -1 ? <Text style={styles.chosen_apathetic}>Apathetic</Text> : null}
-              {settingss.indexOf('Confused') > -1 ? <Text style={styles.chosen_confused}>Confused</Text> : null}
-              {settingss.indexOf('Sad') > -1 ? <Text style={styles.chosen_sad}>Sad</Text> : null}
+              {settings.indexOf('Familiar') > -1 ? <Text style={styles.chosen_familiar}>Familiar</Text> : null}
+              {settings.indexOf('Unfamiliar') > -1 ? <Text style={styles.chosen_familiar}>Unfamiliar</Text> : null}
+              {settings.indexOf('House') > -1 ? <Text style={styles.chosen_familiar}>House</Text> : null}
+              {settings.indexOf('Stage') > -1 ? <Text style={styles.chosen_familiar}>Stage</Text> : null}
+              {settings.indexOf('Building') > -1 ? <Text style={styles.chosen_familiar}>Building</Text> : null}
+              {settings.indexOf('Classroom') > -1 ? <Text style={styles.chosen_familiar}>Classroom</Text> : null}
+              {settings.indexOf('Dungeon') > -1 ? <Text style={styles.chosen_familiar}>Dungeon</Text> : null}
+              {settings.indexOf('Park') > -1 ? <Text style={styles.chosen_familiar}>Park</Text> : null}
             </View>
           </View>
           <View style={{display: 'flex', flexDirection: 'row', padding: 10}}>
             <MyButton
-            title='Back'
-            onPress={() => cancel()}/>
-            <MyButton
             title='Cancel'
-            onPress={() => setSettings([])}/>
+            onPress={() => cancel()} style={styles.cancel}/>
+            <MyButton
+            title='Next'
+            onPress={() => handleNext()} style={styles.cancel}/>
           </View>
         </View>
 
@@ -63,6 +123,29 @@ const Settings = ({ sleepRating, emotions, setSettings, settings}) => {
 }
 
 const styles = StyleSheet.create({
+  settings_container: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: 50
+  },
+  setting_outter_container: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 300
+  },
+  settings_buttons_container: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  settingsQuestion: {
+    color: '#598DAB',
+    fontSize: 28,
+    fontWeight: 'bold'
+  },
   buttons_container: {
     position: 'relative',
     elevation: 8,
@@ -80,6 +163,46 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     textTransform: "uppercase"
+  },
+  cancel: {
+    backgroundColor: "#C0E5FA",
+    position: 'relative',
+    borderRadius: 10,
+    width: 140,
+    height: 35,
+    top: -20,
+    marginLeft: 5,
+    justifyContent: 'center'
+  },
+  button_col1: {
+    position: 'relative',
+    elevation: 8,
+    backgroundColor: "#C0E5FA",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginBottom: 5,
+    width: 150,
+    paddingLeft: 5,
+    shadowColor: '#598DAB',
+    shadowOffset: {width: 2, height: 2},
+    shadowOpacity: .5,
+    shadowRadius: 2
+  },
+  settings_col1: {
+    flex: 1,
+    height: 300,
+  },
+  settings_col2: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: '#598DAB',
+    borderWidth: 5,
+    height: 280,
+    marginBottom: 20,
+    marginLeft: 10
   }
 })
 

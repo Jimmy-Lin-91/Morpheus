@@ -3,47 +3,56 @@ import { View, Button, TouchableOpacity, Text, StyleSheet, Animated } from 'reac
 import FadeIntoView from './FadeIntoView';
 import MyButton from './MyButton.js';
 
-const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation }) => {
+const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation, setRating, setEmotionsDone, emotionsDone }) => {
   const cancel = () => {
     setEmotions([]);
-    navigation.navigate('Profile');
+    setRating(null);
   }
-  if (emotions.length > 0) {
+  let handleNext  = (e) => {
+    setEmotionsDone(true);
+  }
+  if (sleepRating !== null && emotionsDone === false) {
     return (
-      <FadeIntoView style={styles.emotion_container}>
+      <FadeIntoView style={styles.emotions_container}>
         <View style={styles.emotions_outter_container}>
-          <View style={styles.emotions_container}>
-            <Text style={styles.emotionQuestions}>I felt ___ after my dream.</Text>
+          <View>
+            <Text style={styles.emotionsQuestions}>During my dream, I felt ___.</Text>
           </View>
-          <View style={styles.buttons_container}>
-            <View style={styles.emotion_col1}>
+          <View style={styles.emotions_buttons_container}>
+            <View style={styles.emotions_col1}>
             {emotions.indexOf('Angry') < 0 ?
-            <MyButtons
-              styles={styles.buttonContainer}
+            <MyButton
               title='Angry'
+              style={styles.button_col1}
               onPress={() => setEmotions(['Angry', ...emotions])}
             /> : null}
-            {/* {emotions.indexOf('Happy') < 0 ?
-              <Buttons
-              style={styles.Buttons}
+            {emotions.indexOf('Aroused') < 0 ?
+              <MyButton
+              title='Aroused'
+              style={styles.button_col1}
+              onPress={() => setEmotions(['Aroused', ...emotions])}/>
+            : null}
+            {emotions.indexOf('Happy') < 0 ?
+              <MyButton
+              style={styles.button_col1}
               title='Happy'
               onPress={() => setEmotions([...emotions, 'Happy'])}/> : null}
             {emotions.indexOf('Apathetic') < 0 ?
-              <Buttons
-              style={styles.Buttons}
+              <MyButton
+              style={styles.button_col1}
               title='Apathetic'
               onPress={() => setEmotions([...emotions, 'Apathetic'])}/> : null }
             {emotions.indexOf('Confused') < 0 ?
-              <Buttons
-              style={styles.Buttons}
+              <MyButton
+              style={styles.button_col1}
               title='Confused' onPress={() => setEmotions([...emotions, 'Confused'])}/> : null }
             {emotions.indexOf('Sad') < 0 ?
-              <Buttons
-              style={styles.Buttons}
+              <MyButton
+              style={styles.button_col1}
               title='Sad'
-              onPress={() => setEmotions(['Sad', ...emotions])}/> : null} */}
+              onPress={() => setEmotions(['Sad', ...emotions])}/> : null}
             </View>
-            <View style={styles.emotion_col2}>
+            <View style={styles.emotions_col2}>
               {emotions.indexOf('Angry') > -1 ? <Text style={styles.chosen_angry}>Angry</Text> : null}
               {emotions.indexOf('Happy') > -1 ? <Text style={styles.chosen_happy}>Happy</Text> : null}
               {emotions.indexOf('Apathetic') > -1 ? <Text style={styles.chosen_apathetic}>Apathetic</Text> : null}
@@ -54,10 +63,12 @@ const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation }) =
           <View style={{display: 'flex', flexDirection: 'row', padding: 10}}>
             <MyButton
             title='Back'
-            onPress={() => cancel()}/>
+            onPress={() => cancel()} style={styles.cancel}/>
             <MyButton
-            title='Cancel'
-            onPress={() => setEmotions([])}/>
+            title='Next'
+            style={styles.cancel}
+            onPress={() => handleNext()}
+            />
           </View>
         </View>
 
@@ -70,39 +81,69 @@ const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation }) =
   }
 }
 const styles = StyleSheet.create({
+  emotions_container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50
+  },
   emotions_outter_container: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    height: 300
   },
-  emotionQuestions: {
-    position: 'relative',
+  emotionsQuestions: {
     color: '#598DAB',
     fontSize: 28,
     fontWeight: 'bold'
   },
-  Buttonss_container: {
+  emotions_buttons_container: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  emotion_col1: {
-    marginTop: 10,
+  button_col1: {
+    position: 'relative',
+    elevation: 8,
+    backgroundColor: "#C0E5FA",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginBottom: 5,
+    width: 150,
+    paddingLeft: 5,
+    shadowColor: '#598DAB',
+    shadowOffset: {width: 2, height: 2},
+    shadowOpacity: .5,
+    shadowRadius: 2
+  },
+  emotions_col1: {
     flex: 1,
     display: 'flex',
     justifyContent: 'center',
-    height: 300
   },
-  emotion_col2: {
+  emotions_col2: {
     flex: 1,
     display: 'flex',
-    marginLeft: 10,
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: '#598DAB',
     borderWidth: 5,
-    marginTop: 10,
-    height: 300
+    height: 280,
+    marginBottom: 20,
+  },
+  cancel: {
+    backgroundColor: "#C0E5FA",
+    position: 'relative',
+    borderRadius: 10,
+    width: 140,
+    height: 35,
+    top: -20,
+    marginLeft: 5,
+    justifyContent: 'center'
   },
   chosen_sad: {
     color: 'rgba(0, 120, 255, .7)',
@@ -124,24 +165,6 @@ const styles = StyleSheet.create({
   chosen_angry: {
     textAlign: 'center',
     color: 'rgba(255, 0, 0, .8)'
-  },
-  buttons_container: {
-    position: 'relative',
-    elevation: 8,
-    backgroundColor: '#7FC3EA',
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 18,
-    marginBottom: 10,
-    width: 150,
-    margin: 5
-  },
-  buttonText: {
-    fontSize: 18,
-    color: "#fff",
-    fontWeight: "bold",
-    alignSelf: "center",
-    textTransform: "uppercase"
   }
 })
 

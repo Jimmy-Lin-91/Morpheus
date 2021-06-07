@@ -1,6 +1,6 @@
 import React, { useState, setState } from "react";
 import { Text, StyleSheet, View, Button, TouchableOpacity, TextInput, Keyboard, ScrollView, TouchableWithoutFeedback } from "react-native";
-import DPRatingButtons from './components/DPRatingButtons';
+import SleepRating from './components/SleepRating';
 import Emotions from './components/Emotions';
 import Database from '../../server/db/Database';
 import Settings from './components/Settings';
@@ -13,11 +13,16 @@ const DreamPostScreen = ({ navigation }) => {
   const [emotions, setEmotions] = useState([]);
   const [settings, setSettings] = useState([]);
   const [people, setPeople] = useState([]);
+  const [sleepRatingDone, setSleepRatingDone] = useState(false);
+  const [emotionsDone, setEmotionsDone] = useState(false);
+  const [settingsDone, setSettingsDone] = useState(false);
+  const [peoplesDone, setPeoplesDone] = useState(false);
   const clearState = async () => {
     setText('');
     setRating(null);
     setEmotions([]);
-    setDreamWords([]);
+    setSettings([]);
+    setPeople([]);
   }
   const forgetAndNavigate = (string) => {
     clearState().then(() => {
@@ -46,14 +51,33 @@ const DreamPostScreen = ({ navigation }) => {
         </View>
       </TouchableWithoutFeedback>
       <View>
-        <DPRatingButtons sleepRating={sleepRating} setRating={setRating}/>
-        <Emotions sleepRating={sleepRating} setEmotions={setEmotions} emotions={emotions} navigation={navigation}/>
-        <Settings sleepRating={sleepRating} emotions={emotions} settings={settings} setSettings={setSettings}/>
-        <People sleepRating={sleepRating} emotions={emotions} settings={settings} people={people} setPeople={setPeople}/>
+
+        <SleepRating
+        sleepRating={sleepRating}
+        setRating={setRating}
+        />
+
+        <Emotions
+        sleepRating={sleepRating}
+        setRating={setRating}
+        setEmotions={setEmotions}
+        emotionsDone={emotionsDone}
+        setEmotionsDone={setEmotionsDone}
+        emotions={emotions}
+        navigation={navigation}/>
+
+        <Settings
+        emotionsDone={emotionsDone}
+        settings={settings}
+        setSettings={setSettings}
+        settingsDone={settingsDone}
+        setSettingsDone={setSettingsDone}
+        />
+
+        <People settingsDone={settingsDone} people={people} setPeople={setPeople}/>
       </View>
       <View>
-        <MyButton title='Cancel'/>
-        <MyButton title='Home' onPress={() => forgetAndNavigate('Profile')}/>
+        <MyButton title='Home' onPress={() => forgetAndNavigate('Home')} style={styles.home_button}/>
       </View>
     </View>
   )
@@ -94,6 +118,22 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     position: 'relative',
     backgroundColor: 'rgba(181, 163, 163, .18)'
+  },
+  home_button: {
+    position: 'relative',
+    elevation: 8,
+    backgroundColor: "#C0E5FA",
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginBottom: 10,
+    width: 175,
+    paddingLeft: 5,
+    marginTop: 20,
+    shadowColor: '#598DAB',
+    shadowOffset: {width: 2, height: 2},
+    shadowOpacity: .5,
+    shadowRadius: 2
   }
 });
 
