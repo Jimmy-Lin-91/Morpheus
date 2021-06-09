@@ -8,12 +8,16 @@ const SleepRatings = ({ sleepRating, setSleepRating, sleepRatingDone, setSleepRa
   }
   if (sleepRating === null) {
     return (
-      <FadeIntoView style={styles.rating_container}>
-        <View>
-          <View style={styles.sleepQuestions_container}>
-            <Text style={styles.sleepQuestions}>How rested do I feel?</Text>
+      <FadeIntoView style={styles.ratings_container}>
+        <View style={styles.ratings_outter_container}>
+          <View style={styles.ratings_question_container}>
+              <Text style={styles.ratings_question}>How rested do I feel?</Text>
+            <View style={styles.ratings_explained}>
+              <Text style={styles.ratings_explained_text}>1 = Not At All</Text>
+              <Text style={styles.ratings_explained_text}>5 = Very Rested</Text>
+            </View>
           </View>
-          <View style={styles.ratingMyButton_container}>
+          <View style={styles.ratings_MyButton_container}>
             <MyButton
               onPress={() => setRating(1)}
               title='1'
@@ -51,16 +55,21 @@ const SleepRatings = ({ sleepRating, setSleepRating, sleepRatingDone, setSleepRa
   }
 }
 const styles = StyleSheet.create({
-  rating_container: {
+  ratings_container: {
     marginTop: 20,
-    backgroundColor: "#C0E5FA",
-    padding: 15,
-    shadowColor: 'black',
-    shadowOffset: {width: 1, height: 1},
-    shadowOpacity: .8,
-    shadowRadius: 2
+    height: '80%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    position: 'relative',
+    top: '20%'
   },
-  ratingMyButton_container: {
+  ratings_outter_container:{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
+  },
+  ratings_MyButton_container: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -68,25 +77,50 @@ const styles = StyleSheet.create({
     padding: 0,
     paddingRight: 5
   },
-  sleepQuestions: {
+  ratings_question: {
     color: '#598DAB',
     fontSize: 36,
+    borderColor: '#598DAB',
+    fontWeight: 'bold',
+    shadowColor: '#598DAB',
+    shadowOffset: {width: 1, height: 1},
+    shadowOpacity: .5,
+    shadowRadius: 2,
+    backgroundColor: '#C0E5FA',
+    padding: 5
   },
-  sleepQuestions_container: {
+  ratings_question_container: {
     borderBottomWidth: 5,
-    borderBottomColor: '#598DAB'
+    borderBottomColor: '#598DAB',
+    marginBottom: 20
   },
   button: {
     color: '#598DAB',
     marginTop: 10,
-    borderWidth: 2,
     padding: 5,
-    borderRadius: 5,
-    borderColor: '#598DAB',
+    width: 50,
+    backgroundColor: '#C0E5FA',
     shadowColor: '#598DAB',
     shadowOffset: {width: 1, height: 1},
     shadowOpacity: .5,
     shadowRadius: 2
+  },
+  ratings_explained: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+    marginTop: 30,
+    padding: 10
+  },
+  ratings_explained_text: {
+    color: '#598DAB',
+    shadowColor: '#C0E5FA',
+    shadowOffset: {width: 3, height: 3},
+    shadowOpacity: .5,
+    shadowRadius: 2,
+    fontWeight: 'bold',
+    fontSize: 18
   }
 })
 

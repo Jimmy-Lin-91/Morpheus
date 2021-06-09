@@ -16,7 +16,7 @@ const DreamPostScreen = ({ navigation }) => {
   const [sleepRatingDone, setSleepRatingDone] = useState(false);
   const [emotionsDone, setEmotionsDone] = useState(false);
   const [settingsDone, setSettingsDone] = useState(false);
-  const [peoplesDone, setPeoplesDone] = useState(false);
+  const [peopleDone, setPeopleDone] = useState(false);
   const clearState = async () => {
     setText('');
     setRating(null);
@@ -29,29 +29,64 @@ const DreamPostScreen = ({ navigation }) => {
       navigation.navigate(string);
     })
   }
+  const date = () => {
+    var today = new Date().toString();
+    var curDate = today.slice(0, 15);
+    return curDate
+  }
+  const renderSettings = (settings) => {
+    var finalStr = '';
+    if (settings.length === 1) {
+      return (
+        finalStr += settings[0] + '.'
+      )
+    } else {
+      for (var i = 0; i < settings.length; i++) {
+        if (i === settings.length - 1) {
+          return ',and ' + settings[i];
+        } else {
+          finalStr + settings[i] + ', '
+        }
+      }
+    }
+    return finalStr;
+  }
+  const renderFinalTextInput = () => {
+    if (peopleDone === true) {
+      return (
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View>
+            <View>
+              <Text style={styles.dreampost_title}>What I Remember...</Text>
+            </View>
+            <View>
+              {console.log(typeof settings)}
+              <Text>Dream Vault Entry Date: {date()}</Text>
+              <Text>Last night, I dreamt I was in  </Text>
+            </View>
+              <View>
+                <Text style={styles.description}>Anything else I'd like to add...</Text>
+                <TextInput
+                style={styles.textinput}
+                onChangeText={setText}
+                value={text}
+                multiline={true}
+                placeholder='I remember most vividly...'
+                >
+                </TextInput>
+              </View>
 
+          </View>
+          </TouchableWithoutFeedback>
+      )
+    } else {
+      return null;
+    }
+  }
   return (
     <View style={styles.dreampost_container}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      {renderFinalTextInput()}
       <View>
-        <Text style={styles.dreampost_title}>What I Remember...</Text>
-      </View>
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View>
-          <Text style={styles.description}>Be as descriptive as possible. Dream recall is a muscle, train it here...</Text>
-          <TextInput
-          style={styles.textinput}
-          onChangeText={setText}
-          value={text}
-          multiline={true}
-          placeholder='I remember most vividly...'
-          >
-          </TextInput>
-        </View>
-      </TouchableWithoutFeedback>
-      <View>
-
         <SleepRating
         sleepRating={sleepRating}
         setRating={setRating}
@@ -74,7 +109,7 @@ const DreamPostScreen = ({ navigation }) => {
         setSettingsDone={setSettingsDone}
         />
 
-        <People settingsDone={settingsDone} people={people} setPeople={setPeople}/>
+        <People settingsDone={settingsDone} people={people} setPeople={setPeople} peopleDone={peopleDone} setPeopleDone={setPeopleDone}/>
       </View>
       <View>
         <MyButton title='Home' onPress={() => forgetAndNavigate('Home')} style={styles.home_button}/>

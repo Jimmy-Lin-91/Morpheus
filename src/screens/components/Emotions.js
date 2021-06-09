@@ -6,7 +6,6 @@ import MyButton from './MyButton.js';
 const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation, setRating, setEmotionsDone, emotionsDone }) => {
   const cancel = () => {
     setEmotions([]);
-    setRating(null);
   }
   let handleNext  = (e) => {
     setEmotionsDone(true);
@@ -16,7 +15,7 @@ const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation, set
       <FadeIntoView style={styles.emotions_container}>
         <View style={styles.emotions_outter_container}>
           <View>
-            <Text style={styles.emotionsQuestions}>During my dream, I felt ___.</Text>
+            <Text style={styles.emotions_question_container}>During my dream, I felt ___.</Text>
           </View>
           <View style={styles.emotions_buttons_container}>
             <View style={styles.emotions_col1}>
@@ -51,6 +50,12 @@ const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation, set
               style={styles.button_col1}
               title='Sad'
               onPress={() => setEmotions(['Sad', ...emotions])}/> : null}
+            {emotions.indexOf("Can't Recall") < 0 ?
+              <MyButton
+              style={styles.button_col1}
+              title="Can't Recall"
+              onPress={() => setEmotions(["Can't Recall", ...emotions])}/> : null}
+
             </View>
             <View style={styles.emotions_col2}>
               {emotions.indexOf('Angry') > -1 ? <Text style={styles.chosen_angry}>Angry</Text> : null}
@@ -58,6 +63,8 @@ const EmotionsBeforeBed = ({ sleepRating, setEmotions, emotions, navigation, set
               {emotions.indexOf('Apathetic') > -1 ? <Text style={styles.chosen_apathetic}>Apathetic</Text> : null}
               {emotions.indexOf('Confused') > -1 ? <Text style={styles.chosen_confused}>Confused</Text> : null}
               {emotions.indexOf('Sad') > -1 ? <Text style={styles.chosen_sad}>Sad</Text> : null}
+              {emotions.indexOf('Aroused') > -1 ? <Text style={styles.chosen_aroused}>Aroused</Text> : null}
+              {emotions.indexOf("Can't Recall") > -1 ? <Text>Can't Recall</Text> : null}
             </View>
           </View>
           <View style={{display: 'flex', flexDirection: 'row', padding: 10}}>
@@ -85,25 +92,29 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50
+    height: '80%',
+    marginTop: 20
   },
   emotions_outter_container: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 300
+    height: 400
   },
-  emotionsQuestions: {
+  emotions_question_container: {
     color: '#598DAB',
     fontSize: 28,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    backgroundColor: '#C0E5FA',
+    padding: 5
   },
   emotions_buttons_container: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 30
   },
   button_col1: {
     position: 'relative',
@@ -124,16 +135,18 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     justifyContent: 'center',
+    height: 350
   },
   emotions_col2: {
     flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     borderColor: '#598DAB',
     borderWidth: 5,
-    height: 280,
+    height: 220,
     marginBottom: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   cancel: {
     backgroundColor: "#C0E5FA",
@@ -143,28 +156,27 @@ const styles = StyleSheet.create({
     height: 35,
     top: -20,
     marginLeft: 5,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: 20
   },
   chosen_sad: {
     color: 'rgba(0, 120, 255, .7)',
-    textAlign: 'center',
-    height: 40
   },
   chosen_happy: {
     color: 'rgba(0, 255, 120, .7)',
-    textAlign: 'center'
   },
   chosen_confused: {
-    textAlign: 'center',
     color: 'black'
   },
   chosen_apathetic: {
-    textAlign: 'center',
     color: 'grey'
   },
   chosen_angry: {
-    textAlign: 'center',
     color: 'rgba(255, 0, 0, .8)'
+  },
+  chosen_aroused: {
+    color: 'purple',
+    position: 'relative'
   }
 })
 

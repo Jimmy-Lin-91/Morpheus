@@ -76,6 +76,13 @@ const Settings = ({ setSettingsDone, settingsDone, emotionsDone, setSettings, se
             style={styles.button_col1}
             />
           : null}
+          {settings.indexOf("Can't Recall") === -1 ?
+            <MyButton
+            title="Can't Recall"
+            onPress={() => setSettings([...settings, "Can't Recall"])}
+            style={styles.button_col1}
+            />
+          : null}
         </View>
       )
     } else {
@@ -87,7 +94,7 @@ const Settings = ({ setSettingsDone, settingsDone, emotionsDone, setSettings, se
       <FadeIntoView style={styles.settings_container}>
         <View style={styles.setting_outter_container}>
           <View>
-            <Text style={styles.settingsQuestion}>The setting was ___.</Text>
+            <Text style={styles.settings_question_container}>The setting of my dream was...</Text>
           </View>
           <View style={styles.settings_buttons_container}>
             <View style={styles.settings_col1}>
@@ -103,6 +110,7 @@ const Settings = ({ setSettingsDone, settingsDone, emotionsDone, setSettings, se
               {settings.indexOf('Classroom') > -1 ? <Text style={styles.chosen_familiar}>Classroom</Text> : null}
               {settings.indexOf('Dungeon') > -1 ? <Text style={styles.chosen_familiar}>Dungeon</Text> : null}
               {settings.indexOf('Park') > -1 ? <Text style={styles.chosen_familiar}>Park</Text> : null}
+              {settings.indexOf("Can't Recall") > -1 ? <Text>Can't Recall</Text> : null}
             </View>
           </View>
           <View style={{display: 'flex', flexDirection: 'row', padding: 10}}>
@@ -124,27 +132,30 @@ const Settings = ({ setSettingsDone, settingsDone, emotionsDone, setSettings, se
 
 const styles = StyleSheet.create({
   settings_container: {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: 50
+    height: '80%',
+    flexDirection: 'column',
   },
   setting_outter_container: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 300
+    height: 400,
+    marginTop: 70
   },
   settings_buttons_container: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 30
   },
-  settingsQuestion: {
+  settings_question_container: {
     color: '#598DAB',
     fontSize: 28,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    backgroundColor: '#C0E5FA',
+    padding: 10
   },
   buttons_container: {
     position: 'relative',
@@ -153,9 +164,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: 10,
     paddingHorizontal: 18,
-    marginBottom: 10,
-    width: 150,
-    margin: 5
+    marginBottom: 10
   },
   appButtonText: {
     fontSize: 18,
@@ -191,7 +200,9 @@ const styles = StyleSheet.create({
   },
   settings_col1: {
     flex: 1,
-    height: 300,
+    height: 350,
+    display: 'flex',
+    justifyContent: 'center'
   },
   settings_col2: {
     flex: 1,
@@ -200,9 +211,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: '#598DAB',
     borderWidth: 5,
-    height: 280,
+    height: 220,
     marginBottom: 20,
-    marginLeft: 10
+    marginLeft: 20
   }
 })
 
