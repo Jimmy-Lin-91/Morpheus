@@ -35,11 +35,11 @@ const DreamPostScreen = ({ navigation }) => {
     return curDate
   }
   const renderSettings = (settings) => {
-    var finalStr = '';
-    if (settings.length === 1) {
-      return (
-        finalStr += settings[0] + '.'
-      )
+    let finalStr = '';
+    if (settings.indexOf('Familiar')) {
+      for (var i = 0; i < settings.length; i++) {
+        finalStr += 'a ' + 
+      }
     } else {
       for (var i = 0; i < settings.length; i++) {
         if (i === settings.length - 1) {
@@ -60,7 +60,6 @@ const DreamPostScreen = ({ navigation }) => {
               <Text style={styles.dreampost_title}>What I Remember...</Text>
             </View>
             <View>
-              {console.log(typeof settings)}
               <Text>Dream Vault Entry Date: {date()}</Text>
               <Text>Last night, I dreamt I was in  </Text>
             </View>
